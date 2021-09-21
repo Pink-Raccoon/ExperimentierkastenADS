@@ -32,14 +32,7 @@ public class KgvServer implements CommandExecutor {
 
     @Override
     public String execute(String command) {
-        System.out.println("Schreibe zwei Integer und gebe sie so ein: 56 ,76");
-
         StringBuilder result = new StringBuilder(100);
-
-        result.append("Die Eingabe war \"");
-        result.append(command);
-        result.append("\"\n");
-
         String[] numbers  = command.split("[ ,]+");
         int resA = Integer.parseInt(numbers[0]);
         int resB = Integer.parseInt(numbers[1]);
