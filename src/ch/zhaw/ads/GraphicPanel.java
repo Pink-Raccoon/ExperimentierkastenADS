@@ -1,4 +1,4 @@
-package ch.zhaw.ads.Exbox;
+package ch.zhaw.ads;
 
 
 import javax.swing.*;

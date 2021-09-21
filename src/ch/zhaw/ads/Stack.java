@@ -1,5 +1,5 @@
 
-package ch.zhaw.ads.Exbox;
+package ch.zhaw.ads;
 
 /**
   Interface f�r Abstrakten Datentyp (ADT) Stack

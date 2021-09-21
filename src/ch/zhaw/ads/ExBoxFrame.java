@@ -13,7 +13,7 @@
  * @version	2.04 2021/9/11 Test as plugin
  */
 
-package ch.zhaw.ads.Exbox;
+package ch.zhaw.ads;
 
 
 import java.awt.*;

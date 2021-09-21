@@ -6,7 +6,7 @@
  * @version 2.0 -- Dynamisches Nachladen
  * @version 2.01 -- Fix deprecated Functions
  */
-package ch.zhaw.ads.Exbox;
+package ch.zhaw.ads;
 
 
 import java.io.*;

@@ -2,7 +2,7 @@
  * @author K. Rege
  * @version 1.0 -- Experimentierkasten
  */
-package ch.zhaw.ads.Exbox;
+package ch.zhaw.ads;
 
 import java.awt.*;
 import java.io.*;

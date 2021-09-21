@@ -1,4 +1,4 @@
-package ch.zhaw.ads.Exbox;
+package ch.zhaw.ads;
 
 import java.awt.*;
 import java.awt.event.*;

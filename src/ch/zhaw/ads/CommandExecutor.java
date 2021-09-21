@@ -6,7 +6,7 @@
  * @version 1.0 -- Geruest fuer irgendeinen Server
  * @version 1.1 -- K. Rege Fehlerueckgabe hinzugefuegt
  */
-package ch.zhaw.ads.Exbox;
+package ch.zhaw.ads;
 
 public interface CommandExecutor {
 
