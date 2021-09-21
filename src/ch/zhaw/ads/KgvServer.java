@@ -1,6 +1,6 @@
-package ch.zhaw;
+package ch.zhaw.ads;
 
-import ch.zhaw.ads.CommandExecutor;
+
 
 
 public class KgvServer implements CommandExecutor {
