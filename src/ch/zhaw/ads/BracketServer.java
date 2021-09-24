@@ -1,16 +1,13 @@
 package ch.zhaw.ads;
-import java.io.ByteArrayInputStream;
-import java.util.*;
+
 
 public class BracketServer implements CommandExecutor{
-
-
 
     public boolean checkBrackets (String command){
 
         ListStack listStack = new ListStack();
 
-        // Über String input iterieren
+
         for (int i = 0; i < command.length(); i++)
         {
             char x = command.charAt(i);
@@ -22,8 +19,7 @@ public class BracketServer implements CommandExecutor{
                 continue;
             }
 
-            if (listStack.isEmpty())
-                return false;
+
             char check;
             switch (x) {
                 case ')':
@@ -43,6 +39,8 @@ public class BracketServer implements CommandExecutor{
                     if (check == '(' || check == '{')
                         return false;
                     break;
+                default:
+                    continue;
             }
         }
 
@@ -53,8 +51,11 @@ public class BracketServer implements CommandExecutor{
     @Override
     public String execute(String command) throws Exception {
         StringBuilder result = new StringBuilder(100);
-        Scanner scanner = new Scanner(new ByteArrayInputStream(command.getBytes()));
-        command = scanner.next();
+
+        String input = command.replaceAll("\\s+", "");;
+
+
+        System.out.println(input);
 
 
         if (checkBrackets(command)) {
