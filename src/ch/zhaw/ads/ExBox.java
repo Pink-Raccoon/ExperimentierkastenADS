@@ -4,20 +4,21 @@
  */
 package ch.zhaw.ads;
 
-import java.awt.*;
+
 import java.io.*;
-import java.awt.event.*;
+
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class ExBox {
 
     public static void main(String[] args) throws Exception {
-        File file = new File("MainWindow.fxml");
-        FileInputStream fileInputStream = new FileInputStream(file);
+
         ExBoxFrame f = new ExBoxFrame();
         f.setLocationRelativeTo(null);  
         f.setVisible(true);
 
-
-        }
+    }
 
 }
