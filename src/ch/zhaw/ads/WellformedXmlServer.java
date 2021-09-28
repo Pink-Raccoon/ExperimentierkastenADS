@@ -1,12 +1,13 @@
 package ch.zhaw.ads;
+
 import java.io.*;
-import java.util.Scanner;
+import java.util.List;
 
 public class WellformedXmlServer implements CommandExecutor{
 
     File file = new File("src/ExcludedFromCompiling/books.xml");
+    ListStack listStack = new ListStack();
 
-    String xmlVersion = "<?xml version=\"1.0\"?>";
 
     public String readFile(){
 
@@ -18,14 +19,11 @@ public class WellformedXmlServer implements CommandExecutor{
 
                 line = line.trim();
 
-                if ( line.equals(xmlVersion)) {
-                    System.out.println("Im am first line");
-                    continue;
-                }
 
                 // Creating array of string length
                 char[] ch = new char[line.length()];
                 String newToken = "";
+
                 boolean starter = false;
                 boolean enderli = false;
                 boolean ender = false;
@@ -62,16 +60,24 @@ public class WellformedXmlServer implements CommandExecutor{
                         continue;
                     }
 
-                    newToken += c;
+
+                        newToken += c;
 
 
 
-                    System.out.println(c);
+
+
+
+
+
+
+
                 }
 
 
 
-                // do something with the token ding
+
+
 
 
 
@@ -87,68 +93,23 @@ public class WellformedXmlServer implements CommandExecutor{
     }
 
 
-    private void setToken(String content){
-        Scanner scanner = new Scanner(content);
-        String token = scanner.next();
+ public boolean checkWellformed(String command){
 
+     if(!(command.equals(listStack.peek()))){
+         listStack.push(command);
 
-    }
+     }else {
+         listStack.pop();
 
-
-//    private String getNextToken(){
-//
-//
-//
-//    }
-
-/*    public boolean checkWellformed(String command){
+     }
 
 
 
 
-        ListStack listStack = new ListStack();
-
-
-
-        for (int i = 0; i < command.length(); i++)
-        {
-
-
-            if (x == '<' ||
-            {
-
-                listStack.push(x);
-                continue;
-            }
-
-
-            char check;
-            switch (x) {
-                case '>':
-                    check = (char) listStack.pop();
-                    if (check != '<')
-                        return false;
-                    break;
-
-                case '}':
-                    check = (char) listStack.pop();
-                    if (check == '(' || check == '[')
-                        return false;
-                    break;
-
-                case ']':
-                    check = (char) listStack.pop();
-                    if (check == '(' || check == '{')
-                        return false;
-                    break;
-                default:
-                    continue;
-            }
-        }
 
 
         return (listStack.isEmpty());
-    }*/
+    }
 
     @Override
     public String execute(String command) throws Exception {
@@ -156,6 +117,7 @@ public class WellformedXmlServer implements CommandExecutor{
         StringBuilder result = new StringBuilder(100);
 
         String input = command.replaceAll("\\s+", "");;
+
 
         System.out.println("Im am execute");
         System.out.println(input);
@@ -165,7 +127,7 @@ public class WellformedXmlServer implements CommandExecutor{
         }
 
 
-/*        if (checkWellformed(command)) {
+        if (checkWellformed(command)) {
             result.append("Wohlgeformt");
             result.append("\n");
         } else{
@@ -173,8 +135,7 @@ public class WellformedXmlServer implements CommandExecutor{
             result.append("\n");
 
         }return result.toString();
-*/
-        return null;
+
 
     }
 }
