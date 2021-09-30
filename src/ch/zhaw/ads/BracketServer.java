@@ -1,18 +1,39 @@
 package ch.zhaw.ads;
 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class BracketServer implements CommandExecutor{
+
+    private boolean prepareWeirdBracketsForStack(String command){
+        Pattern pattern = Pattern.compile("[/][*][\\*\\+][*][/]");
+        Matcher matcher = pattern.matcher(command);
+        boolean matches = matcher.matches();
+
+        if(!matches) {
+            return  false;
+        }
+
+        return true;
+    }
 
     public boolean checkBrackets (String command){
 
         ListStack listStack = new ListStack();
 
+        if(command.equals(")")){
+            return false;
+        }
 
-        for (int i = 0; i < command.length(); i++)
+
+
+
+         for (int i = 0; i < command.length(); i++)
         {
             char x = command.charAt(i);
 
-            if (x == '(' || x == '[' || x == '{')
+            if (x == '(' || x == '[' || x == '{' || x== '<')
             {
 
                 listStack.push(x);
@@ -24,21 +45,29 @@ public class BracketServer implements CommandExecutor{
             switch (x) {
                 case ')':
                     check = (char) listStack.pop();
-                    if (check == '{' || check == '[')
+                    if (check == '{' || check == '['|| check == '<' )
                         return false;
                     break;
 
                 case '}':
                     check = (char) listStack.pop();
-                    if (check == '(' || check == '[')
+                    if (check == '(' || check == '['|| check == '<')
                         return false;
                     break;
 
                 case ']':
                     check = (char) listStack.pop();
-                    if (check == '(' || check == '{')
+                    if (check == '(' || check == '{'|| check == '<')
                         return false;
                     break;
+
+                case '>':
+                    check = (char) listStack.pop();
+                    if (check == '(' || check == '[' || check == '{')
+                        return false;
+                    break;
+
+
                 default:
                     continue;
             }
@@ -58,7 +87,8 @@ public class BracketServer implements CommandExecutor{
         System.out.println(input);
 
 
-        if (checkBrackets(command)) {
+
+        if (checkBrackets(command) || prepareWeirdBracketsForStack(command)) {
             result.append("Wohlgeformt");
             result.append("\n");
         } else{
