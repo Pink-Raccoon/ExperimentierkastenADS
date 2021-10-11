@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class BracketServer implements CommandExecutor{
 
     private boolean prepareWeirdBracketsForStack(String command){
-        Pattern pattern = Pattern.compile("[/][*][\\*\\+][*][/]");
+        Pattern pattern = Pattern.compile("^[\\/][*][^\\/*]+[\\w\\W|null][*][\\/]$");
         Matcher matcher = pattern.matcher(command);
         boolean matches = matcher.matches();
 
@@ -22,21 +22,32 @@ public class BracketServer implements CommandExecutor{
 
         ListStack listStack = new ListStack();
 
-        if(command.equals(")")){
+        if(command.equals(")") || command.equals(">")){
             return false;
         }
 
-
+// /*/**/
 
 
          for (int i = 0; i < command.length(); i++)
         {
             char x = command.charAt(i);
+            boolean weirdoOpen = command.startsWith("/*");
+            boolean weirdoClosed = command.endsWith("*/");
+
+            boolean testWeirdo = prepareWeirdBracketsForStack(command);
+
+            if (!testWeirdo && (command.startsWith("/*") || command.endsWith("*/")))
+            {
+                return false;
+            }
+
 
             if (x == '(' || x == '[' || x == '{' || x== '<')
             {
 
                 listStack.push(x);
+
                 continue;
             }
 
@@ -66,6 +77,8 @@ public class BracketServer implements CommandExecutor{
                     if (check == '(' || check == '[' || check == '{')
                         return false;
                     break;
+
+
 
 
                 default:
