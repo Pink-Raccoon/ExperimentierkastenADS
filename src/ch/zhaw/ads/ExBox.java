@@ -19,6 +19,7 @@ public class ExBox {
         f.setLocationRelativeTo(null);  
         f.setVisible(true);
 
+
     }
 
 }
