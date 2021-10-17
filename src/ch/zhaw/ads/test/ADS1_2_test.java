@@ -7,6 +7,7 @@ package ch.zhaw.ads.test;
  * @version 1.00 2017/8/30
  */
 
+import ch.zhaw.ads.ListStack;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
