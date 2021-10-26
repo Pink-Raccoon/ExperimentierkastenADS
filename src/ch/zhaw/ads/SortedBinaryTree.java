@@ -71,12 +71,11 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
 	}
 
 	public Traversal<T> traversal() {
-		// TODO Implement
+
 		return new TreeTraversal<T>(root);
 	}
 	
 	protected int calcHeight(TreeNode<T> node) {
-        // TODO Implement
 		if (root==null) {
 			return 0;
 		} else {
@@ -100,8 +99,6 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
 	}
   
 	protected int calcSize(TreeNode p) {
-
-        // TODO Implement
 		if(p == null){
 			return 0;
 		}else {
@@ -116,8 +113,23 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
 	}
 		
   	public boolean balanced() {
-  	    return false;
+  	    return balanced(root);
+
 	}
+
+	private boolean balanced(TreeNode<T> node) {
+
+		if (node != null) {
+			if (Math.abs(calcHeight(node.left) - calcHeight(node.right)) <= 1) {
+				return balanced(node.left) && balanced(node.right);
+			} else {
+				return false;
+			}
+		}return true;
+	}
+
+
+
 
 	// only for testing and debugging: show the structure of the tree
 	public String printTree() {

@@ -9,18 +9,23 @@ package ch.zhaw.ads;
 public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> {
 
 	private boolean balanced(TreeNode<T> node) {
-        // TODO Implement
-		return false;
+		if (node != null) {
+			if (Math.abs(calcHeight(node.left) - calcHeight(node.right)) <= 1) {
+				return balanced(node.left) && balanced(node.right);
+			} else {
+				return false;
+			}
+		}
+		return true;
 	}
-    
+
 	public boolean balanced() {
 		return balanced(root);
 	}
-	
+
 	@Override
 	protected int calcSize(TreeNode p) {
-        // TODO Implement
-		return 0;
+		return super.calcSize(p);
 	}
 
 	/**
@@ -32,36 +37,36 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 
 	/**
 	 * Insert into the tree; duplicates are ignored.
-	 * @param element the item to insert.
+	 * @param x the item to insert.
 	 */
 	public void add(T element) {
 		root = insertAt(root, element);
 	}
-	
+
 	private TreeNode<T> balance(TreeNode<T> p) {
 		if (p == null) {
 			return null;
 		} else if (height(p.left) - height(p.right) == 2) {
 			if (height(p.left.left) > height(p.left.right)) {
-				// TODO Implement
+				rotateR(p);
 			} else {
-				// TODO Implement
+				rotateLR(p);
 			}
 		} else if (height(p.right) - height(p.left) == 2) {
 			if (height(p.right.right) > height(p.right.left)) {
-				// TODO Implement
+				rotateL(p);
 			} else {
-				// TODO Implement
-			}					
-		}		
+				rotateRL(p);
+			}
+		}
 		p.height = Math.max(height(p.left), height(p.right)) + 1;
 		return p;
 	}
- 	
+
 	/**
 	 * Internal method to insert into a subtree.
-	 * @param p the item to insert.
-	 * @param element the node that roots the tree.
+	 * @param x the item to insert.
+	 * @param t the node that roots the tree.
 	 * @return the new root.
 	 */
 	private TreeNode insertAt(TreeNode p, T element) {
@@ -72,7 +77,7 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 		} else {
 			int c = element.compareTo((T) p.getValue());
 			if (c == 0) {
-			    p.values.add(element);
+				p.values.add(element);
 			}
 			else if (c < 0) {
 				p.left = insertAt(p.left, element);
@@ -83,7 +88,7 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 		p = balance(p);
 		return p;
 	}
-	
+
 	// find node to replace
 	private TreeNode<T> rep;
 	private TreeNode<T> findRepAt(TreeNode<T> node) {
@@ -96,8 +101,8 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 		}
 		return node;
 	}
-	
-    private T removed;
+
+	private T removed;
 	// remove node
 	private TreeNode<T> removeAt(TreeNode<T> node, T x) {
 		if (node == null) {
@@ -130,7 +135,7 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 			return node;
 		}
 	}
-	
+
 	/**
 	 * Remove from the tree. Nothing is done if x is not found.
 	 * @param x the item to remove.
@@ -140,15 +145,15 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 		root = removeAt(root, x);
 		return removed;
 	}
-	
+
 	public Traversal<T> traversal() {
 		return new AVLTreeTraversal<T>(root);
 	}
-	
+
 	public T removeLast() {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	/**
 	 * Rotate binary tree node with left child.
 	 * For AVL trees, this is a single rotation for case 1.
@@ -198,5 +203,5 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 		k1.right = rotateR(k1.right);
 		return rotateL(k1);
 	}
-	
+
 }

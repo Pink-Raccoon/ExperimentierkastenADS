@@ -9,15 +9,21 @@
 
 package ch.zhaw.ads;
 
+import ch.zhaw.ads.AVLSearchTree;
+import ch.zhaw.ads.TreeNode;
 import org.junit.Test;
 import org.junit.Before;
+
+
+
+
 import static org.junit.Assert.*;
 import java.io.*;
 
 public class ADS6_4_test {
 	MyTree<String> tree;
 	
-	String fileToTest = "AVLSearchTree.java";
+	String fileToTest = "src/ch/zhaw/ads/AVLSearchTree.java";
 	
 	@Test
     public void checkFileUpload() throws Exception {

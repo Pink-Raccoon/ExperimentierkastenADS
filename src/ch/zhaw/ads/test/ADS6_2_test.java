@@ -7,14 +7,15 @@
  * @version 1.01 2021/8/1
  */
 
-package ch.zhaw.ads;
+package ch.zhaw.ads.test;
 
+import ch.zhaw.ads.AVLSearchTree;
+import ch.zhaw.ads.Tree;
+import ch.zhaw.ads.Visitor;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
-import java.util.Collections;
-import java.util.List;
-import java.util.LinkedList;
+
 import java.io.*;
 
 public class ADS6_2_test {
