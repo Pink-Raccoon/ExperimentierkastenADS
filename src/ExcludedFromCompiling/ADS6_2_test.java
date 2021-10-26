@@ -7,11 +7,8 @@
  * @version 1.01 2021/8/1
  */
 
-package ch.zhaw.ads.test;
+package ch.zhaw.ads;
 
-import ch.zhaw.ads.AVLSearchTree;
-import ch.zhaw.ads.Tree;
-import ch.zhaw.ads.Visitor;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
@@ -40,28 +37,28 @@ public class ADS6_2_test {
 
 	@Test
 	public void testInorder() {
-		Visitor<String> v = new MyVisitor<String>();
+		Visitor<String> v = new ch.zhaw.ads.MyVisitor<String>();
 		tree.traversal().inorder(v);
 		assertEquals("inorder", "ABCD", v.toString());
 	}
 	
 	@Test
 	public void testPreorder() {
-		Visitor<String> v = new MyVisitor<String>();
+		Visitor<String> v = new ch.zhaw.ads.MyVisitor<String>();
 		tree.traversal().preorder(v);
 		assertEquals("preorder", "BACD", v.toString());	
 	}	
 	
 	@Test	
 	public void testPostorder() {	
-		Visitor<String> v = new MyVisitor<String>();
+		Visitor<String> v = new ch.zhaw.ads.MyVisitor<String>();
 		tree.traversal().postorder(v);
 		assertEquals("postorder", "ADCB", v.toString());
 	}	
 
 	@Test
 	public void testLevelorder() {			
-		Visitor<String> v = new MyVisitor<String>();
+		Visitor<String> v = new ch.zhaw.ads.MyVisitor<String>();
 		tree.traversal().levelorder(v);
 		assertEquals("levelorder", "BACD", v.toString());	
 	}

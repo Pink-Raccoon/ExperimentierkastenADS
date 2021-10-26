@@ -37,7 +37,7 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 
 	/**
 	 * Insert into the tree; duplicates are ignored.
-	 * @param x the item to insert.
+	 * @param element the item to insert.
 	 */
 	public void add(T element) {
 		root = insertAt(root, element);
@@ -65,8 +65,8 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 
 	/**
 	 * Internal method to insert into a subtree.
-	 * @param x the item to insert.
-	 * @param t the node that roots the tree.
+	 * @param p the item to insert.
+	 * @param element the node that roots the tree.
 	 * @return the new root.
 	 */
 	private TreeNode insertAt(TreeNode p, T element) {
@@ -103,38 +103,40 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 	}
 
 	private T removed;
-	// remove node
-	private TreeNode<T> removeAt(TreeNode<T> node, T x) {
-		if (node == null) {
-			return null;
-		} else {
-			if (x.compareTo(node.getValue()) == 0) {
-				// found
-				removed = node.getValue();
-				if (node.values.size() > 1) {
-					node.values.remove(0);
-					return node;
-				} else if (node.left == null) {
-					node = node.right;
-				} else if (node.right == null) {
-					node = node.left;
-				} else {
-					node.left = findRepAt(node.left);
-					rep.left = node.left;
-					rep.right = node.right;
-					node = rep;
-				}
-			} else if (x.compareTo(node.getValue()) <= 0) {
-				// search left
-				node.left = removeAt(node.left, x);
+		// remove node
+		private TreeNode<T> removeAt(TreeNode<T> node, T x) {
+			if (node == null) {
+				return null;
 			} else {
-				// search right
-				node.right = removeAt(node.right, x);
+				if (x.compareTo(node.getValue()) == 0) {
+					// found
+					removed = node.getValue();
+					if (node.values.size() > 1) {
+						node.values.remove(0);
+						return node;
+					} else if (node.left == null) {
+						node = node.right;
+					} else if (node.right == null) {
+						node = node.left;
+					} else {
+						node.left = findRepAt(node.left);
+						rep.left = node.left;
+						rep.right = node.right;
+						node = rep;
+					}
+				} else if (x.compareTo(node.getValue()) <= 0) {
+					// search left
+					node.left = removeAt(node.left, x);
+				} else {
+					// search right
+					node.right = removeAt(node.right, x);
+				}
+
+
+				return balance(node);
 			}
-			// TODO Implement
-			return node;
 		}
-	}
+
 
 	/**
 	 * Remove from the tree. Nothing is done if x is not found.

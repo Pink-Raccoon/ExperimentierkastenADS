@@ -10,7 +10,7 @@
 package ch.zhaw.ads;
 
 import org.junit.Test;
-import org.junit.Before;
+
 import static org.junit.Assert.*;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.io.*;
 public class ADS6_5_test {
 	Tree<String> tree;
 	
-	String fileToTest = "AVLSearchTree.java";
+	String fileToTest = "src/ch/zhaw/ads/AVLSearchTree.java";
 	
 	@Test
     public void checkFileUpload() throws Exception {
