@@ -72,21 +72,46 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
 
 	public Traversal<T> traversal() {
 		// TODO Implement
+		return new TreeTraversal<T>(root);
 	}
 	
 	protected int calcHeight(TreeNode<T> node) {
         // TODO Implement
+		if (root==null) {
+			return 0;
+		} else {
+			int leftHeight = 0;
+			int rightHeight = 0;
+			if(node.left!= null){
+				leftHeight = calcHeight(node.left);
+			}
+			if(node.right != null){
+				rightHeight = calcHeight(node.right);
+			}
+			int max = (leftHeight > rightHeight) ? leftHeight:rightHeight;
+			return (max+1);
+		}
+
 	} 
   
 	public int height() {
+
 		return calcHeight(root);
 	}
   
 	protected int calcSize(TreeNode p) {
+
         // TODO Implement
+		if(p == null){
+			return 0;
+		}else {
+			return(calcSize(p.left) + 1 + calcSize(p.right));
+		}
+
 	}
 	
   	public int size() {
+
 		return calcSize(root);
 	}
 		
