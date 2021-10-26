@@ -10,6 +10,7 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 
 	private boolean balanced(TreeNode<T> node) {
         // TODO Implement
+		return false;
 	}
     
 	public boolean balanced() {
@@ -19,6 +20,7 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 	@Override
 	protected int calcSize(TreeNode p) {
         // TODO Implement
+		return 0;
 	}
 
 	/**
@@ -30,7 +32,7 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 
 	/**
 	 * Insert into the tree; duplicates are ignored.
-	 * @param x the item to insert.
+	 * @param element the item to insert.
 	 */
 	public void add(T element) {
 		root = insertAt(root, element);
@@ -58,8 +60,8 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
  	
 	/**
 	 * Internal method to insert into a subtree.
-	 * @param x the item to insert.
-	 * @param t the node that roots the tree.
+	 * @param p the item to insert.
+	 * @param element the node that roots the tree.
 	 * @return the new root.
 	 */
 	private TreeNode insertAt(TreeNode p, T element) {
