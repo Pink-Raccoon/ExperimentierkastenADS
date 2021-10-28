@@ -25,7 +25,7 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
 	// find node to replace
 	private TreeNode<T> findRepAt(TreeNode<T> node, TreeNode<T> rep) {
 		if (node.right != null) {
-			node.right = findRepAt(node.right,rep);
+			node.right = findRepAt(node.right, rep);
 		} else {
 			rep.values = node.values;
 			node = node.left;
@@ -34,7 +34,7 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
 	}
 
 	// remove node
-	private TreeNode<T> removeAt(TreeNode<T> node, T x,TreeNode<T> removed ) {
+	private TreeNode<T> removeAt(TreeNode<T> node, T x, TreeNode<T> removed) {
 		if (node == null) {
 			return null;
 		} else {
@@ -46,7 +46,7 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
 				} else if (node.right == null) {
 					node = node.left;
 				} else {
-					node.left = findRepAt(node.left,node);
+					node.left = findRepAt(node.left, node);
 				}
 			} else if (x.compareTo(node.getValue()) < 0) {
 				// search left
@@ -71,79 +71,52 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
 	}
 
 	public Traversal<T> traversal() {
-
-		return new TreeTraversal<T>(root);
+		return null;
 	}
-	
+
 	protected int calcHeight(TreeNode<T> node) {
-		if (root==null) {
-			return 0;
-		} else {
-			int leftHeight = 0;
-			int rightHeight = 0;
-			if(node.left!= null){
-				leftHeight = calcHeight(node.left);
-			}
-			if(node.right != null){
-				rightHeight = calcHeight(node.right);
-			}
-			int max = (leftHeight > rightHeight) ? leftHeight:rightHeight;
-			return (max+1);
+		if (node != null) {
+			int leftHeight = calcHeight(node.left);
+			int rightHeight = calcHeight(node.right);
+			return Math.max(leftHeight, rightHeight) + 1;
 		}
+		return 0;
+	}
 
-	} 
-  
 	public int height() {
-
 		return calcHeight(root);
 	}
-  
-	protected int calcSize(TreeNode p) {
-		if(p == null){
-			return 0;
-		}else {
-			return(calcSize(p.left) + 1 + calcSize(p.right));
+
+	protected int calcSize(TreeNode<T> node) {
+		if (node != null) {
+			int leftSize = calcSize(node.left);
+			int rightSize = calcSize(node.right);
+			return leftSize + rightSize + 1;
 		}
-
+		return 0;
 	}
-	
-  	public int size() {
 
+	public int size() {
 		return calcSize(root);
 	}
-		
-  	public boolean balanced() {
-  	    return balanced(root);
 
+	public boolean balanced() {
+		return false;
 	}
-
-	private boolean balanced(TreeNode<T> node) {
-
-		if (node != null) {
-			if (Math.abs(calcHeight(node.left) - calcHeight(node.right)) <= 1) {
-				return balanced(node.left) && balanced(node.right);
-			} else {
-				return false;
-			}
-		}return true;
-	}
-
-
-
 
 	// only for testing and debugging: show the structure of the tree
 	public String printTree() {
 		StringBuilder out = new StringBuilder();
 		if (root.right != null) {
-			printTree(root.right,out, true, "");
+			printTree(root.right, out, true, "");
 		}
-		out.append(root.values+"\n");
+		out.append(root.values + "\n");
 		if (root.left != null) {
-			printTree(root.left,out, false, "");
+			printTree(root.left, out, false, "");
 		}
 		return out.toString();
 	}
-  
+
 	private void printTree(TreeNode node, StringBuilder out, boolean isRight, String indent) {
 		if (node.right != null) {
 			printTree(node.right, out, true,
@@ -156,7 +129,7 @@ public class SortedBinaryTree<T extends Comparable<T>> implements Tree<T> {
 			out.append(" \\");
 		}
 		out.append("----- ");
-		out.append(node.values+"\n");
+		out.append(node.values + "\n");
 		if (node.left != null) {
 			printTree(node.left, out, false,
 					indent + (isRight ? " |      " : "        "));

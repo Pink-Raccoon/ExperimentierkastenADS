@@ -8,13 +8,11 @@ package ch.zhaw.ads;
 
 public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> {
 
+	private static int MAX_ABWEICHUNG_HOEHE_LEFT_AND_RIGHT_TREE = 2;
+
 	private boolean balanced(TreeNode<T> node) {
 		if (node != null) {
-			if (Math.abs(calcHeight(node.left) - calcHeight(node.right)) <= 1) {
-				return balanced(node.left) && balanced(node.right);
-			} else {
-				return false;
-			}
+			return Math.abs(calcHeight(node.left) - calcHeight(node.right)) < MAX_ABWEICHUNG_HOEHE_LEFT_AND_RIGHT_TREE && balanced(node.left) && balanced(node.right);
 		}
 		return true;
 	}
@@ -24,8 +22,13 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 	}
 
 	@Override
-	protected int calcSize(TreeNode p) {
-		return super.calcSize(p);
+	protected int calcSize(TreeNode node) {
+		if (node != null) {
+			int leftSize = calcSize(node.left);
+			int rightSize = calcSize(node.right);
+			return leftSize + rightSize + node.values.size();
+		}
+		return 0;
 	}
 
 	/**
@@ -37,7 +40,7 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 
 	/**
 	 * Insert into the tree; duplicates are ignored.
-	 * @param element the item to insert.
+	 * @param x the item to insert.
 	 */
 	public void add(T element) {
 		root = insertAt(root, element);
@@ -48,15 +51,15 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 			return null;
 		} else if (height(p.left) - height(p.right) == 2) {
 			if (height(p.left.left) > height(p.left.right)) {
-				rotateR(p);
+				p = rotateR(p);
 			} else {
-				rotateLR(p);
+				p = rotateLR(p);
 			}
 		} else if (height(p.right) - height(p.left) == 2) {
 			if (height(p.right.right) > height(p.right.left)) {
-				rotateL(p);
+				p = rotateL(p);
 			} else {
-				rotateRL(p);
+				p = rotateRL(p);
 			}
 		}
 		p.height = Math.max(height(p.left), height(p.right)) + 1;
@@ -65,8 +68,8 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 
 	/**
 	 * Internal method to insert into a subtree.
-	 * @param p the item to insert.
-	 * @param element the node that roots the tree.
+	 * @param x the item to insert.
+	 * @param t the node that roots the tree.
 	 * @return the new root.
 	 */
 	private TreeNode insertAt(TreeNode p, T element) {
@@ -103,40 +106,38 @@ public class AVLSearchTree<T extends Comparable<T>> extends SortedBinaryTree<T> 
 	}
 
 	private T removed;
-		// remove node
-		private TreeNode<T> removeAt(TreeNode<T> node, T x) {
-			if (node == null) {
-				return null;
-			} else {
-				if (x.compareTo(node.getValue()) == 0) {
-					// found
-					removed = node.getValue();
-					if (node.values.size() > 1) {
-						node.values.remove(0);
-						return node;
-					} else if (node.left == null) {
-						node = node.right;
-					} else if (node.right == null) {
-						node = node.left;
-					} else {
-						node.left = findRepAt(node.left);
-						rep.left = node.left;
-						rep.right = node.right;
-						node = rep;
-					}
-				} else if (x.compareTo(node.getValue()) <= 0) {
-					// search left
-					node.left = removeAt(node.left, x);
+	// remove node
+	private TreeNode<T> removeAt(TreeNode<T> node, T x) {
+		if (node == null) {
+			return null;
+		} else {
+			if (x.compareTo(node.getValue()) == 0) {
+				// found
+				removed = node.getValue();
+				if (node.values.size() > 1) {
+					node.values.remove(0);
+					return node;
+				} else if (node.left == null) {
+					node = node.right;
+				} else if (node.right == null) {
+					node = node.left;
 				} else {
-					// search right
-					node.right = removeAt(node.right, x);
+					node.left = findRepAt(node.left);
+					rep.left = node.left;
+					rep.right = node.right;
+					node = rep;
 				}
-
-
-				return balance(node);
+			} else if (x.compareTo(node.getValue()) <= 0) {
+				// search left
+				node.left = removeAt(node.left, x);
+			} else {
+				// search right
+				node.right = removeAt(node.right, x);
 			}
+			node = balance(node);
+			return node;
 		}
-
+	}
 
 	/**
 	 * Remove from the tree. Nothing is done if x is not found.
